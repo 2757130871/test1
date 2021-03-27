@@ -1,36 +1,47 @@
-#include <stdio.h>
+int* singleNumbers(int* nums, int numsSize, int* returnSize){
 
-int* singleNumbers(int* nums, int numsSize, int* returnSize) {
-    int mask = 0;
-    int i;
-    for (i = 0; i < numsSize; i++)
+    int ret=0;
+    int i =0;
+    
+    //保存单独出现的数异或在一起的值
+    for(i=0;i<numsSize;i++)
     {
-        mask ^= nums[i];
+        ret^=nums[i];
     }
-    mask = mask & (-1 * mask);
-    int m1 = 0, m2 = 0;
-    for (i = 0; i < numsSize; i++)
+
+    int m=0;
+    //从低向高位找到ret中第m位为1的位置, 为1代表异或在一起的两个数不相同。
+    while(m<32)
     {
-        if ((nums[i] & mask) == 0)//λ�������ȼ����ڹ�ϵ����
+        if(ret & (1<<m))
         {
-            m1 ^= nums[i];
+            break;
         }
         else
         {
-            m2 ^= nums[i];
+            m++;
         }
     }
-    *returnSize = 2;
-    int* a = (int*)malloc(2 * sizeof(int));
-    a[0] = m1;
-    a[1] = m2;
-    return a;
-}
 
+    int x = 0;
+    int y = 0;
+    for(i=0;i<numsSize;i++)
+    {
+        if(nums[i] & (1<<m))
+        {
+            x^=nums[i];
+        }
+        else
+        {
+            y^=nums[i];
+        }
+    }
 
+    int* retArr = malloc(2* sizeof(int));
 
-int main()
-{
+    retArr[0]=x;
+    retArr[1]=y;
+    *returnSize = 2; 
 
-	return;
+    return retArr;
 }
