@@ -19,7 +19,7 @@ struct ListNode* reverseList(struct ListNode* head)
 
 
 
-//解法2：递归解法
+//解法2：递归
 struct ListNode* reverse(struct ListNode* pre, struct ListNode* cur) {
     if (cur == NULL) {
         return pre;
