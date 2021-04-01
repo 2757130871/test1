@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-//½â·¨1£ºµü´ú£¬Ë«Ö¸Õë·¨
 
 
+//è§£æ³•1ï¼šåŒæŒ‡é’ˆè¿­ä»£
 struct ListNode* reverseList(struct ListNode* head)
 {
 	struct ListNode* cur = head;
@@ -15,6 +15,28 @@ struct ListNode* reverseList(struct ListNode* head)
 	}
 	return pre;
 }
+
+
+
+
+//è§£æ³•2ï¼šé€’å½’è§£æ³•
+struct ListNode* reverse(struct ListNode* pre, struct ListNode* cur) {
+    if (cur == NULL) {
+        return pre;
+    }
+    struct ListNode* tmp = cur->next;
+    cur->next = pre;
+    //pre = cur;
+    //cur = tmp;
+    return reverse(cur, tmp);  
+}
+
+struct ListNode* reverseList(struct ListNode* head) {
+    //struct ListNode* cur = head;
+    //struct ListNode* pre = NULL;
+    return reverse(NULL, head);
+}
+
 
 int main()
 {
