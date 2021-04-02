@@ -18,7 +18,8 @@ struct ListNode* deleteDuplicates(struct ListNode* head) {
     return head;
 }
 
-
+//时间复杂度：O(n)，nn 是链表的长度。
+//空间复杂度：O(1)。
 
 int main()
 {
