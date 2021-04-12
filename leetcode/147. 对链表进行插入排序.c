@@ -10,9 +10,9 @@
 
 typedef struct ListNode Node;
 
-//Ë¼Â·£º
-//½«Á´±íÍ·²¿·Ö¸î³öÀ´¡£¼Ù¶¨ËüÎªÓÐÐòÁ´±í¡£
-//°ÑÊ£ÓàÁ´±í½Úµã²åÈë·ÖÀë³öµÄÍ·½áµã¡£ÐÎ³ÉÓÐÐòÁ´±í¡£
+//æ€è·¯ï¼š
+//å°†é“¾è¡¨å¤´éƒ¨åˆ†å‰²å‡ºæ¥ã€‚å‡å®šå®ƒä¸ºæœ‰åºé“¾è¡¨ã€‚
+//æŠŠå‰©ä½™é“¾è¡¨èŠ‚ç‚¹æ’å…¥åˆ†ç¦»å‡ºçš„å¤´ç»“ç‚¹ã€‚å½¢æˆæœ‰åºé“¾è¡¨ã€‚
 struct ListNode* insertionSortList(struct ListNode* head) {
 
     if (head == NULL || head->next == NULL)
@@ -71,8 +71,64 @@ struct ListNode* insertionSortList(struct ListNode* head) {
 
 
 
-int main()
-{
+//again
 
-	return;
+typedef struct ListNode Node;
+
+struct ListNode* insertionSortList(struct ListNode* head){
+
+    if(head == NULL || head->next == NULL)
+        return head;
+
+    Node* sorthead = head;
+
+
+    Node* newhead = head->next;
+
+    //è§£é™¤sorté“¾è¡¨å’ŒåŽç»­çš„é“¾æŽ¥ã€‚
+    sorthead->next = NULL;
+
+    Node* cur = newhead;
+    
+    while(cur)
+    {
+        Node* next = cur->next;
+
+        if(cur->val < sorthead->val)
+        {
+            cur->next = sorthead;
+            sorthead = cur;
+
+           // cur = next;
+        }
+        else
+        {
+            Node* prev = sorthead;
+            Node* sortcur = sorthead->next;
+
+            while(sortcur && cur->val >= sortcur->val)
+            {
+                
+                prev = sortcur;
+                sortcur = sortcur->next;
+            }
+
+            if(sortcur)
+            {
+                cur->next = sortcur;
+                prev->next = cur;
+            }
+
+            if(sortcur == NULL)
+            {
+                prev->next = cur;
+                cur->next = NULL;
+            }
+
+        }
+
+        cur = next;
+    }
+
+    return sorthead;
 }
