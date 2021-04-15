@@ -1,27 +1,27 @@
 
 
-//利用二分查找
+//二分查找思想
+int minArray(int* numbers, int numbersSize){
 
-int findMin(int* nums, int numsSize) {
 
 	int low = 0;
-	int high = numsSize - 1;
+	int high = numbersSize - 1;
 
 	//当第一个元素小于最后元素说明有序，直接返回
 	//数组只有一个元素时直接返回
-	if (nums[low] < nums[high] || low == high)
+	if (numbers[low] < numbers[high] || low == high)
 	{
-		return nums[low];
+		return numbers[low];
 	}
 
-	//
+	//当他们相邻的时候就停止
 	while (low + 1 != high) {
 
 		int pivot = low + (high - low) / 2;
-		if (nums[pivot] < nums[high]) {
+		if (numbers[pivot] < numbers[high]) {
 			high = pivot;
 		}
-		else if (nums[pivot] > nums[high]) {
+		else if (numbers[pivot] > numbers[high]) {
 			low = pivot;
 		}
 		else
@@ -30,7 +30,8 @@ int findMin(int* nums, int numsSize) {
 		}
 	}
 
-	return nums[high];
-}
+	return numbers[high];
 
+
+}
 
