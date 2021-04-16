@@ -1,14 +1,14 @@
 
 
-//ÀûÓÃ¶ş·Ö²éÕÒ
+//åˆ©ç”¨äºŒåˆ†æŸ¥æ‰¾
 
 int findMin(int* nums, int numsSize) {
 
 	int low = 0;
 	int high = numsSize - 1;
 
-	//µ±µÚÒ»¸öÔªËØĞ¡ÓÚ×îºóÔªËØËµÃ÷ÓĞĞò£¬Ö±½Ó·µ»Ø
-	//Êı×éÖ»ÓĞÒ»¸öÔªËØÊ±Ö±½Ó·µ»Ø
+	//å½“ç¬¬ä¸€ä¸ªå…ƒç´ å°äºæœ€åå…ƒç´ è¯´æ˜æœ‰åºï¼Œç›´æ¥è¿”å›
+	//æ•°ç»„åªæœ‰ä¸€ä¸ªå…ƒç´ æ—¶ç›´æ¥è¿”å›
 	if (nums[low] < nums[high] || low == high)
 	{
 		return nums[low];
@@ -33,4 +33,54 @@ int findMin(int* nums, int numsSize) {
 	return nums[high];
 }
 
+
+
+//å¦ä¸€ç§æ€è·¯
+
+//å½“left right midä¸‰ä¸ªä¸‹æ ‡æŒ‡å‘çš„å€¼ç›¸ç­‰æ—¶ï¼Œå°±åªèƒ½éå†å¯»æ‰¾äº†ã€‚
+
+int findMin(int* nums, int numsSize){
+
+    int left = 0;
+    int right = numsSize - 1;
+
+    if (nums[left] < nums[right] || left == right)
+	{
+		return nums[left];
+	}
+
+    while(left + 1 != right)
+    {
+        int mid = (left + right)/2; 
+
+        if(nums[mid] < nums[right])
+        {   
+            right = mid;
+        }
+        else if(nums[mid] > nums[left])
+        {   
+            left = mid;
+        }
+        else
+        {
+            return getMin(nums,left,right);
+        }
+
+    }
+
+    return nums[right];
+}
+
+int getMin(int* nums,int left,int right)
+{
+    int min = nums[left];
+
+    int i;
+    for(i=left+1;i<=right;i++)
+    {
+        if(nums[i]<min)
+            min = nums[i];
+    }
+    return min;
+}
 
