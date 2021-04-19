@@ -1,5 +1,6 @@
 
-//ԭ���滻 
+//原地替换
+//一个萝卜一个坑思想
 class Solution {
 public:
     int findRepeatNumber(vector<int>& nums) {
