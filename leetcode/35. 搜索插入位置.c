@@ -4,17 +4,17 @@ int searchInsert(int* nums, int numsSize, int target) {
 
 	int insertIndex = 0;
 
-	//±éÀúÊı×é
+	//éå†æ•°ç»„
 	int i;
 	for (i = 0;i < numsSize;i++)
 	{
-		//Èç¹ûÆ¥Åä·µ»ØËùÔÚË÷Òı
+		//å¦‚æœåŒ¹é…è¿”å›æ‰€åœ¨ç´¢å¼•
 		if (target == nums[i])
 		{
 			return i;
 		}
 
-		//´óÓÚ¾ÍÔö¼Ó
+		//å¤§äºå°±å¢åŠ 
 		if (target > nums[i])
 		{
 			insertIndex++;
@@ -22,12 +22,35 @@ int searchInsert(int* nums, int numsSize, int target) {
 
 	}
 
-	//±éÀú½áÊøÃ»ÓĞÕÒµ½£¬¾Í·µ»Ø²åÈëË÷Òı¡£
+	//éå†ç»“æŸæ²¡æœ‰æ‰¾åˆ°ï¼Œå°±è¿”å›æ’å…¥ç´¢å¼•ã€‚
 	return insertIndex;
 }
 
-int main()
-{
 
-	return;
+//äºŒåˆ†æ³•ï¼Œå’Œæ ‡å‡†äºŒåˆ†ä¸€æ ·ï¼Œåªæ˜¯æ‰¾ä¸åˆ°çš„è¯è¿”å›çš„æ˜¯å¾…æ’å…¥çš„ä½ç½®ã€‚
+int searchInsert(int* nums, int numsSize, int target) {
+
+	int left = 0;
+    int right = numsSize - 1;
+
+    while(left <= right)
+    {
+        int mid = left + (right - left) / 2;
+
+        if(nums[mid] > target)
+        {
+            right = mid - 1;
+        }
+        else if(nums[mid] < target)
+        {
+            left  = mid + 1;
+        }
+        else
+        {
+            return mid;
+        }
+        
+    }
+	
+	return left;
 }
