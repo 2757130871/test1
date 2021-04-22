@@ -3,6 +3,9 @@
  */
 
 
+//从左边找一个偶数
+//右边找一个奇数
+//如果左偶数下标小于奇数就交换
 
 int* exchange(int* nums, int numsSize, int* returnSize) {
 
