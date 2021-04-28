@@ -1,28 +1,56 @@
-﻿class Solution {
-    public int[][] findContinuousSequence(int target) {
-        List<int[]> list = new ArrayList<>();
+//滑动窗口思想
+//序列和小于target right向左边移动,扩大范围
+//序列和大于target left向左移动，缩小范围
+//注意点：
+//1. left可移动范围
+//2.
+class Solution {
+public:
+    vector<vector<int>> findContinuousSequence(int target) {
 
-        //里要有一个区间的概念，这里的区间是(1, 2, 3, ..., target - 1)
-        //套滑动窗口模板，l是窗口左边界，r是窗口右边界，窗口中的值一定是连续值。
-        //当窗口中数字和小于target时，r右移; 大于target时，l右移; 等于target时就获得了一个解
-        for (int l = 1, r = 1, sum = 0; r < target; r++) {
-            sum += r;
-            while (sum > target) {
-                sum -= l++;
-            }
-            if (sum == target) {
-                int[] temp = new int[r - l + 1];
-                for (int i = 0; i < temp.length; i++) {
-                    temp[i] = l + i;
+        vector<vector<int>> ret;
+
+        if (target < 3)    return ret;
+
+        int left = 1;
+        int right = 2;
+        int middle = (1 + target) >> 1;
+        int curSum = left + right;
+
+        while (left < middle)
+        {
+            if (curSum == target)
+            {
+                vector<int> tmp;
+                int lefttmp = left;
+                for (;lefttmp <= right;lefttmp++)
+                {
+                    tmp.push_back(lefttmp);
                 }
-                list.add(temp);
+                ret.push_back(tmp);
             }
+
+            while (curSum > target && left < middle)
+            {
+                curSum -= left;
+                left++;
+
+                if (curSum == target)
+                {
+                    vector<int> tmp;
+                    int lefttmp = left;
+                    for (;lefttmp <= right;lefttmp++)
+                    {
+                        tmp.push_back(lefttmp);
+                    }
+                    ret.push_back(tmp);
+                }
+            }
+
+            right++;
+            curSum += right;
         }
 
-        int[][] res = new int[list.size()][];
-        for (int i = 0; i < res.length; i++) {
-            res[i] = list.get(i);
-        }
-        return res;
+        return ret;
     }
-}
+};
