@@ -1,60 +1,75 @@
-#pragma once
+#define _CRT_SECURE_NO_WARNINGS 1
+#include "game.h" 
 
-#include <stdio.h>
-#include "game.h"
-#include <stdlib.h>
-#include <time.h>
-
+void game()
+{
+	char board[ROW][COL];
+	
+	//æ£‹ç›˜åˆå§‹åŒ–
+	InitBoard( board , ROW , COL );
+	//æ‰“å°æ£‹ç›˜
+	DisplayBoard( board, ROW, COL);
+	while(1)
+	{
+		char ret=0;
+		//ç©å®¶ä¸‹æ£‹
+		PlayerPlay(board , ROW , COL);
+		DisplayBoard( board, ROW, COL);
+		ret = Is_Win(board, ROW, COL);
+		if(ret == 'Q')
+		{
+			  printf("å¹³å±€\n");
+			  break;
+		}
+		else if(ret == '*')
+		{
+			  printf("ç©å®¶å–èƒœ\n");
+			  break;
+		}
+		//ç”µè„‘ä¸‹æ£‹
+		ComputerPlay(board , ROW , COL);
+		DisplayBoard( board, ROW, COL);
+		ret = Is_Win(board, ROW, COL);
+		if(ret == 'Q')
+		{
+			  printf("å¹³å±€\n");
+			  break;
+		}
+		else if(ret == '#')
+		{
+			  printf("ç”µè„‘å–èƒœ\n");
+			  break;
+		}
+	}	
+}
 
 void menu()
 {
-	printf("--------1.¿ªÊ¼ÓÎÏ·--------\n");
-	printf("--------0.ÍË³öÓÎÏ·--------\n");
+	printf("**************************\n");
+	printf("*****	  1.play	 *****\n");
+	printf("*****	  0.exit	 *****\n");
+	printf("**************************\n");	
 }
-
-void Game()
-{
-	char mine[ROWS][COLS] = { 0 };
-	char show[ROWS][COLS] = { 0 };
-
-	//³õÊ¼»¯ÆåÅÌ
-	InitBoard(mine, ROWS, COLS, '0');
-	InitBoard(show, ROWS, COLS, '*');
-
-	//´òÓ¡ÆåÅÌ
-	PrintBoard(mine, ROWS, COLS);
-	PrintBoard(show, ROWS, COLS);
-
-	//ÉèÖÃÀ×
-	SetMine(mine, ROW, COLS);
-	PrintBoard(mine, ROWS, COLS);
-}
-
-
 int main()
-{
+{	
+	int input = 0;
+	menu();
 	srand((unsigned int)time(NULL));
-	int input;
 	do
 	{
-		menu();
-		scanf_s("%d", &input);
-		switch (input)
+		printf("æ˜¯å¦ç©ä¸‰å­æ£‹æ¸¸æˆï¼š>");
+		scanf("%d",&input);
+		switch(input)
 		{
-		case 1:
-			Game();
-			break;
-		case 0:
-			printf("ÍË³ö\n");
-			break;
-		default:
-			printf("ÊäÈëÓĞÎó£¬ÖØĞÂÊäÈë\n");
-			break;
+			case 1:
+				game();
+				break;
+			case 0:
+				printf("é€€å‡ºæ¸¸æˆ\n");
+				break;
+			default:
+				printf("è¾“å…¥é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥\n");
+				break;
 		}
-
-	} while (input);
-
-
-
-	return 0;
+	}while(input);
 }
