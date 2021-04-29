@@ -1,75 +1,46 @@
 #define _CRT_SECURE_NO_WARNINGS 1
-#include "game.h" 
+#include "game.h"
 
+//扫雷代码实现
 void game()
 {
-	char board[ROW][COL];
+	char mine[ROWS][COLS]={ 0 };//用一个二维数组存储雷的信息
+	char show[ROWS][COLS]={ 0 };//用一个二维数组展示雷场
 	
-	//棋盘初始化
-	InitBoard( board , ROW , COL );
-	//打印棋盘
-	DisplayBoard( board, ROW, COL);
-	while(1)
-	{
-		char ret=0;
-		//玩家下棋
-		PlayerPlay(board , ROW , COL);
-		DisplayBoard( board, ROW, COL);
-		ret = Is_Win(board, ROW, COL);
-		if(ret == 'Q')
-		{
-			  printf("平局\n");
-			  break;
-		}
-		else if(ret == '*')
-		{
-			  printf("玩家取胜\n");
-			  break;
-		}
-		//电脑下棋
-		ComputerPlay(board , ROW , COL);
-		DisplayBoard( board, ROW, COL);
-		ret = Is_Win(board, ROW, COL);
-		if(ret == 'Q')
-		{
-			  printf("平局\n");
-			  break;
-		}
-		else if(ret == '#')
-		{
-			  printf("电脑取胜\n");
-			  break;
-		}
-	}	
-}
+	//初始化雷场
+	Init_board(mine , ROWS , COLS , '0');
+	Init_board(show , ROWS , COLS , '*');
 
-void menu()
-{
-	printf("**************************\n");
-	printf("*****	  1.play	 *****\n");
-	printf("*****	  0.exit	 *****\n");
-	printf("**************************\n");	
+	//打印雷场
+	Display_board(show,ROW,COL);
+
+	//布雷
+	Set_Mine(mine,ROW,COL,COUNT);
+
+	//扫雷
+	Find_mine(mine,show,ROW,COL,COUNT);
 }
 int main()
-{	
+{
 	int input = 0;
-	menu();
 	srand((unsigned int)time(NULL));
 	do
 	{
-		printf("是否玩三子棋游戏：>");
+		menu();
+		printf("请选择：>");
 		scanf("%d",&input);
 		switch(input)
 		{
 			case 1:
+				printf("扫雷游戏开始\n");
+				printf("总共有%d个雷\n",COUNT);
 				game();
 				break;
 			case 0:
-				printf("退出游戏\n");
-				break;
+				printf("退出扫雷\n");
 			default:
-				printf("输入错误，请重新输入\n");
-				break;
+				printf("选择错误，请重新选择\n");
 		}
 	}while(input);
+	return 0;
 }
