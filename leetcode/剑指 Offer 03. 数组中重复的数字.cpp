@@ -21,3 +21,21 @@ public:
 
     }
 };
+
+
+
+//使用键值对 需要花费O(N)的空间   Java实现 
+
+class Solution {
+    public int findRepeatNumber(int[] nums) {
+
+        Set<Integer> set = new HashSet<>();
+        for(int n : nums)
+        {
+            if(set.contains(n)) return n;
+            set.add(n);        
+        }
+
+        return -1;
+    }
+} 
