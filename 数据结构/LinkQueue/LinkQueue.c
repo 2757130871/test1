@@ -15,7 +15,7 @@ LinkQueue* CreateQueue()
 	return head;
 }
 
-//³õÊ¼»¯¶ÓÁĞ
+//åˆå§‹åŒ–é˜Ÿåˆ—
 void InitQueue(LinkQueue* L)
 {
 	QNode* front = (QNode*)malloc(sizeof(QNode));
@@ -24,7 +24,7 @@ void InitQueue(LinkQueue* L)
 	L->rear = front;
 }
 
-//Èë¶Ó
+//å…¥é˜Ÿ
 void EnQueue(LinkQueue* L, Elemtype e)
 {
 	QNode* newNode = (QNode*)malloc(sizeof(QNode));
@@ -34,14 +34,14 @@ void EnQueue(LinkQueue* L, Elemtype e)
 		return;
 	}
 	newNode->data = e;
-	newNode->next = L->front->next;
+	newNode->next = NULL;
 
 	L->rear->next = newNode;
 	L->rear = newNode;
 	return;
 }
 
-//³ö¶Ó
+//å‡ºé˜Ÿ
 void DeQueue(LinkQueue* L, Elemtype* e)
 {
 	if (L->front == L->rear)
@@ -61,3 +61,22 @@ void DeQueue(LinkQueue* L, Elemtype* e)
 	return;
 }
 
+
+//Print
+void PrintQueue(LinkQueue* L)
+{
+	if (L->front == L->rear)
+	{
+		printf("Queue is Empty\n");
+		return;
+	}
+	printf("ä»é˜Ÿåˆ—å°¾éƒ¨æ‰“å°\n");
+	QNode* cur = L->front->next;
+	while (cur)
+	{
+		printf("%d ", cur->data);
+		cur = cur->next;
+	}
+
+	return;
+}
