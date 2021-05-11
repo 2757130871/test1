@@ -14,7 +14,8 @@
 typedef struct TreeNode Tnode;
 
 
-//
+//æ€è·¯ï¼š
+//å…¶å®å°±æ˜¯äºŒå‰æ ‘çš„å±‚åºéå†ï¼ŒæŠŠéå†çš„ç»“æœæ”¾åœ¨ä¸€ä¸ªmallocå‡ºæ¥çš„æ•°ç»„é‡Œã€‚
 int* levelOrder(struct TreeNode* root, int* returnSize) {
 
     if (!root)
@@ -23,18 +24,18 @@ int* levelOrder(struct TreeNode* root, int* returnSize) {
         return NULL;
     }
 
-    Tnode* Queue[1000]; //´´½¨¶ÓÁĞ
-    int front = -1, rear = -1; //¶ÓÍ·£¬¶ÓÎ²
+    Tnode* Queue[1000]; //åˆ›å»ºé˜Ÿåˆ—
+    int front = -1, rear = -1; //é˜Ÿå¤´ï¼Œé˜Ÿå°¾
 
-    Tnode* p; //¹¤×÷Ö¸Õë
+    Tnode* p; //å·¥ä½œæŒ‡é’ˆ
 
-    int* retArr = (int*)malloc(sizeof(int) * 1000);//·µ»ØÊı×é
+    int* retArr = (int*)malloc(sizeof(int) * 1000);//è¿”å›æ•°ç»„
     int i = 0;//
 
     Queue[++rear] = root;
     while (front < rear)
     {
-        p = Queue[++front]; //³ö¶Ó
+        p = Queue[++front]; //å‡ºé˜Ÿ
         retArr[i++] = p->val;
         if (p->left)
             Queue[++rear] = p->left;
