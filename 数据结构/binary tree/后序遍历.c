@@ -1,5 +1,5 @@
 
-//ºóĞò±éÀú
+//ååºéå†
 void postorder(treeNode* Node)
 {
 	if (!Node)
