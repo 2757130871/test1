@@ -1,23 +1,34 @@
-int majorityElement(int* nums, int numsSize) {
-    int key = nums[0];
-    int count = 0;
-    for (size_t i = 0; i < numsSize; i++)
-    {
-        if (nums[i] == key)
-            count++;
-        else
-            count--;
 
-        if (count <= 0)
+//æ•´ä½“æ€è·¯ï¼š
+//æ ¹æ®é¢˜æ„ï¼Œé¢˜ç›®ä¸­æœ‰ä¸€ä¸ªæ•°å­—å‡ºçŽ°çš„æ¬¡æ•°è¶…è¿‡æ•°ç»„å…ƒç´ ä¸€åŠã€‚
+//é‚£ä¹ˆè¿™ä¸ªæ•°ç»„å‡ºçŽ°æ¬¡æ•°ä¸€å®šæ¯”å…¶ä»–æ•°å­—å‡ºçŽ°çš„æ¬¡æ•°åŠ èµ·æ¥è¿˜è¦å¤šã€‚
+//
+
+int majorityElement(int* nums, int numsSize){
+
+    if(!nums)   return -1;
+
+    int ret = nums[0];
+    int times = 1;
+
+    int i;
+    for(i=1;i<numsSize;i++)
+    {
+        if(ret==nums[i])
         {
-            key = nums[i + 1];
+            times++;
+        }
+        else
+        {
+            times--;
         }
 
+        if(times == 0)
+        {
+            ret = nums[i];
+            times = 1;
+        }
     }
-    return key;
-}
 
-×÷Õß£ºworld - 16
-Á´½Ó£ºhttps://leetcode-cn.com/problems/majority-element/solution/liang-chong-fang-fa-onhe-onlogn-by-world-16/
-À´Ô´£ºÁ¦¿Û£¨LeetCode£©
-Öø×÷È¨¹é×÷ÕßËùÓÐ¡£ÉÌÒµ×ªÔØÇëÁªÏµ×÷Õß»ñµÃÊÚÈ¨£¬·ÇÉÌÒµ×ªÔØÇë×¢Ã÷³ö´¦¡£
+    return ret;
+}
