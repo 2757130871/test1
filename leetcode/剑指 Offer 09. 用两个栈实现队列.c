@@ -1,53 +1,65 @@
-typedef struct {
+//æ€è·¯ï¼š ä¾‹å¦‚è¾“å…¥ 1 2 3  è¾“å‡ºï¼š 1 2 3
+//é¢˜ç›®è¦æ±‚ç”¨ä¸¤ä¸ªæ ˆå®ç°é˜Ÿåˆ—ï¼Œæˆ‘ä»¬æ— æ³•ç›´æ¥åˆ é™¤æ ˆåº•éƒ¨çš„å…ƒç´ 
+//å¯ä»¥å†åˆ›å»ºä¸€ä¸ªæ ˆï¼Œç„¶åå°†å­˜å‚¨å…ƒç´ çš„æ ˆä¸­æ•°æ®pushå…¥å¦ä¸€ä¸ªæ ˆï¼Œ
+//æ­¤æ—¶å¦ä¸€ä¸ªæ ˆçš„å…ƒç´ å°±æ˜¯åŸæ ˆæ•°æ®çš„é€†åºï¼Œ
+//  stack1     stack2
+//  | 3 |      | 1 |
+//  | 2 |      | 2 |
+//  | 1 |      | 3 |
 
+//æ­¤æ—¶popæ ˆ2çš„å°±æ¨¡æ‹Ÿäº†é˜Ÿåˆ—å‡ºé˜Ÿ
+
+//æ ˆ
+typedef struct {
+    int data[10000];
+    int top;
 } CQueue;
 
-
+//åˆ›å»ºå¹¶åˆå§‹åŒ–
 CQueue* cQueueCreate() {
-
+    CQueue* stk1 = (CQueue*)malloc(sizeof(CQueue));
+    if(!stk1)   return NULL;       
+                
+    stk1->top = -1;
+    return stk1;
 }
 
 void cQueueAppendTail(CQueue* obj, int value) {
-
+    if(!obj)    return;
+    //å‹æ ˆ
+    obj->data[++obj->top] = value;
 }
 
 int cQueueDeleteHead(CQueue* obj) {
+    if(!obj)    return -1;
+    if(obj->top == -1)
+        return -1;
 
+    CQueue stk2;
+    stk2.top = -1;
+    
+  
+    int tmp = obj->top;
+
+    while(tmp != -1)
+    {
+        stk2.data[++stk2.top] = obj->data[tmp--]; //å°†æ•°æ®ä»stack1å‹å…¥stack2
+    }
+    
+    //æ¯è°ƒç”¨ä¸€æ¬¡deleteHeadéœ€è¦æ›´æ–°stack1å°†å·²ç»å‡ºé˜Ÿçš„æ•°æ®ç§»é™¤ã€‚
+    int i;
+    for(i = 0;i < obj->top;i++)
+    {
+        obj->data[i] = obj->data[i+1];
+    }
+    obj->top--; //è®°å¾—æ›´æ–°top
+
+    int ret = stk2.data[stk2.top];  //pop stack2å…ƒç´ å°±æ˜¯å‡ºé˜Ÿæ“ä½œ
+    
+    return ret;
 }
 
 void cQueueFree(CQueue* obj) {
-
+    free(obj);
 }
 
-
-ÊäÈë£º
-
-["CQueue", "appendTail", "deleteHead", "deleteHead"]
-ÕâÒ»ĞĞ±íÊ¾Ã¿Ò»ĞĞ´úÂëµÄ²Ù×÷
-
-[[], [3], [], []]
-Õâ¸ö±íÊ¾Ã¿Ò»ĞĞ´úÂë²Ù×÷ËùĞèÒªµÄ²ÎÊı
-
-¾ÙÀı£º
-CQueue ±íÊ¾ĞÂ½¨Ò»¸öCQueue¶ÔÏó£¬¶ÔÓ¦µÄËùĞè²ÎÊıÎª[]£¬¼´´Ë²Ù×÷²»ĞèÒª²ÎÊı¡£
-appendTail ±íÊ¾Ö´ĞĞÒ»¸öappendTail()²Ù×÷£¬¶ÔÓ¦Òª±»²Ù×÷µÄÔªËØÎª3¡£
-deleteHead ±íÊ¾Ö´ĞĞÒ»¸ödeleteHead²Ù×÷£¬¶ÔÓ¦µÄËùĞè²ÎÊıÎª[]£¬¼´´Ë²Ù×÷²»ĞèÒª²ÎÊı¡£
-deleteHead ±íÊ¾Ö´ĞĞÒ»¸ödeleteHead²Ù×÷£¬¶ÔÓ¦µÄËùĞè²ÎÊıÎª[]£¬¼´´Ë²Ù×÷²»ĞèÒª²ÎÊı¡£
-
-ÒÔÉÏµÄÊäÈëÆäÊµÊÇÒ»¸ö´úÂëÖ´ĞĞµÄ²½ÖèÃèÊöÓëÆä¶ÔÓ¦ËùĞè²ÎÊı¡£
-
-¼´Á½¸öÎ³¶È£º
-1¡¢²Ù×÷ÃèÊö
-2¡¢´Ë´Î²Ù×÷ËùĞè²ÎÊı
-3¡¢²Ù×÷ÃèÊöÓë²Ù×÷ËùĞè²ÎÊıÊÇÍ¨¹ıÄ¬ÈÏË³ĞòÒ»Ò»¶ÔÓ¦µÄ¡£
-
-
-/**
- * Your CQueue struct will be instantiated and called as such:
- * CQueue* obj = cQueueCreate();
- * cQueueAppendTail(obj, value);
-
- * int param_2 = cQueueDeleteHead(obj);
-
- * cQueueFree(obj);
-*/
