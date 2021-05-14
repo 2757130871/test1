@@ -1,26 +1,37 @@
 
-//选择排序
-void Sort(int arr[], int len)
+void Swap(int arr[],int i,int j)
 {
-	
+	if (!arr)	return;
+	int tmp = arr[i];
+	arr[i] = arr[j];
+	arr[j] = tmp;
+
+}
+
+//选择排序
+//基本思想：
+//减少交换的次数，找到需要交换的关键字再进行交换。
+//节省了交换时带来的性能损耗。
+void SelectSort(int arr[], int len)
+{
+
 	int i;
-	for (i = 0;i < len - 1;i++)
+	for (i = 0;i < len;i++)
 	{
 		int min = i;
 		int j;
-		
-		for (j = 0;j < len - 1 - i;j++)
+
+		for (j = i + 1;j < len;j++)
 		{
-			if (arr[j] > arr[j + 1])
+			if (arr[min] > arr[j])
 			{
-				int tmp = 0;
-				tmp = arr[j + 1];
-				arr[j + 1] = arr[j];
-				arr[j] = tmp;
-				flag = 1;
+				min = j;
 			}
 
 		}
-		if (flag == 0)	break;
+		if (min != i)
+		{
+			Swap(arr, min, i);
+		}
 	}
 }
