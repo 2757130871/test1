@@ -1,12 +1,14 @@
 
+//閫夋嫨鎺掑簭
 void Sort(int arr[], int len)
 {
-	int flag = 0; //优化，如果数组已经有序停止比较。
+	
 	int i;
 	for (i = 0;i < len - 1;i++)
 	{
+		int min = i;
 		int j;
-		flag = 0;
+		
 		for (j = 0;j < len - 1 - i;j++)
 		{
 			if (arr[j] > arr[j + 1])
