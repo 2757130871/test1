@@ -1,6 +1,6 @@
 
 
-//µİ¹éÊµÏÖ¡£
+//é€’å½’å®ç°ã€‚
 class Solution {
 private:
     unordered_map<int, int> index;
@@ -11,31 +11,66 @@ public:
             return nullptr;
         }
 
-        // Ç°Ğò±éÀúÖĞµÄµÚÒ»¸ö½Úµã¾ÍÊÇ¸ù½Úµã
+        // å‰åºéå†ä¸­çš„ç¬¬ä¸€ä¸ªèŠ‚ç‚¹å°±æ˜¯æ ¹èŠ‚ç‚¹
         int preorder_root = preorder_left;
-        // ÔÚÖĞĞò±éÀúÖĞ¶¨Î»¸ù½Úµã
+        // åœ¨ä¸­åºéå†ä¸­å®šä½æ ¹èŠ‚ç‚¹
         int inorder_root = index[preorder[preorder_root]];
 
-        // ÏÈ°Ñ¸ù½Úµã½¨Á¢³öÀ´
+        // å…ˆæŠŠæ ¹èŠ‚ç‚¹å»ºç«‹å‡ºæ¥
         TreeNode* root = new TreeNode(preorder[preorder_root]);
-        // µÃµ½×ó×ÓÊ÷ÖĞµÄ½ÚµãÊıÄ¿
+        // å¾—åˆ°å·¦å­æ ‘ä¸­çš„èŠ‚ç‚¹æ•°ç›®
         int size_left_subtree = inorder_root - inorder_left;
-        // µİ¹éµØ¹¹Ôì×ó×ÓÊ÷£¬²¢Á¬½Óµ½¸ù½Úµã
-        // ÏÈĞò±éÀúÖĞ¡¸´Ó ×ó±ß½ç+1 ¿ªÊ¼µÄ size_left_subtree¡¹¸öÔªËØ¾Í¶ÔÓ¦ÁËÖĞĞò±éÀúÖĞ¡¸´Ó ×ó±ß½ç ¿ªÊ¼µ½ ¸ù½Úµã¶¨Î»-1¡¹µÄÔªËØ
+        // é€’å½’åœ°æ„é€ å·¦å­æ ‘ï¼Œå¹¶è¿æ¥åˆ°æ ¹èŠ‚ç‚¹
+        // å…ˆåºéå†ä¸­ã€Œä» å·¦è¾¹ç•Œ+1 å¼€å§‹çš„ size_left_subtreeã€ä¸ªå…ƒç´ å°±å¯¹åº”äº†ä¸­åºéå†ä¸­ã€Œä» å·¦è¾¹ç•Œ å¼€å§‹åˆ° æ ¹èŠ‚ç‚¹å®šä½-1ã€çš„å…ƒç´ 
         root->left = myBuildTree(preorder, inorder, preorder_left + 1, preorder_left + size_left_subtree, inorder_left, inorder_root - 1);
-        // µİ¹éµØ¹¹ÔìÓÒ×ÓÊ÷£¬²¢Á¬½Óµ½¸ù½Úµã
-        // ÏÈĞò±éÀúÖĞ¡¸´Ó ×ó±ß½ç+1+×ó×ÓÊ÷½ÚµãÊıÄ¿ ¿ªÊ¼µ½ ÓÒ±ß½ç¡¹µÄÔªËØ¾Í¶ÔÓ¦ÁËÖĞĞò±éÀúÖĞ¡¸´Ó ¸ù½Úµã¶¨Î»+1 µ½ ÓÒ±ß½ç¡¹µÄÔªËØ
+        // é€’å½’åœ°æ„é€ å³å­æ ‘ï¼Œå¹¶è¿æ¥åˆ°æ ¹èŠ‚ç‚¹
+        // å…ˆåºéå†ä¸­ã€Œä» å·¦è¾¹ç•Œ+1+å·¦å­æ ‘èŠ‚ç‚¹æ•°ç›® å¼€å§‹åˆ° å³è¾¹ç•Œã€çš„å…ƒç´ å°±å¯¹åº”äº†ä¸­åºéå†ä¸­ã€Œä» æ ¹èŠ‚ç‚¹å®šä½+1 åˆ° å³è¾¹ç•Œã€çš„å…ƒç´ 
         root->right = myBuildTree(preorder, inorder, preorder_left + size_left_subtree + 1, preorder_right, inorder_root + 1, inorder_right);
         return root;
     }
 
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         int n = preorder.size();
-        // ¹¹Ôì¹şÏ£Ó³Éä£¬°ïÖúÎÒÃÇ¿ìËÙ¶¨Î»¸ù½Úµã
+        // æ„é€ å“ˆå¸Œæ˜ å°„ï¼Œå¸®åŠ©æˆ‘ä»¬å¿«é€Ÿå®šä½æ ¹èŠ‚ç‚¹
         for (int i = 0; i < n; ++i) {
             index[inorder[i]] = i;
         }
         return myBuildTree(preorder, inorder, 0, n - 1, 0, n - 1);
     }
 };
+
+
+//è¿­ä»£å®ç°
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        if (!preorder.size()) {
+            return nullptr;
+        }
+        TreeNode* root = new TreeNode(preorder[0]);
+        stack<TreeNode*> stk;
+        stk.push(root);
+        int inorderIndex = 0;
+        for (int i = 1; i < preorder.size(); ++i) {
+            int preorderVal = preorder[i];
+            TreeNode* node = stk.top();
+            if (node->val != inorder[inorderIndex]) {
+                node->left = new TreeNode(preorderVal);
+                stk.push(node->left);
+            }
+            else {
+                while (!stk.empty() && stk.top()->val == inorder[inorderIndex]) {
+                    node = stk.top();
+                    stk.pop();
+                    ++inorderIndex;
+                }
+                node->right = new TreeNode(preorderVal);
+                stk.push(node->right);
+            }
+        }
+        return root;
+    }
+};
+
+
 
