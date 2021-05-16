@@ -23,13 +23,13 @@ typedef	signed long    	INT32S;
 #define	BIT(n)	( 1 << n )
 
 /******************
-UartCmdLen：UartCmd + UartErrCode
-UartDataLen：UartDataBuf
+UartCmdLen拢潞UartCmd + UartErrCode
+UartDataLen拢潞UartDataBuf
 *******************/
 typedef struct __sUartData
 {
-	INT8U UartCmdLen;  //命令长度
-	INT8U UartDataLen; //数据长度 
+	INT8U UartCmdLen;  //脙
+	INT8U UartDataLen; //duiyu
 	INT16U UartCmd;
 	INT8U  UartErrCode;
 	INT8U  UartDataBuf[1];
