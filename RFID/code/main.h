@@ -25,6 +25,7 @@ typedef	signed long    	INT32S;
 /******************
 UartCmdLen£ºUartCmd + UartErrCode
 UartDataLen£ºUartDataBuf
+
 *******************/
 typedef struct __sUartData
 {
