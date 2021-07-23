@@ -1,12 +1,15 @@
 #include "contact.h"
 
-#define ADD 1
-#define DELETE 2
-#define MODIFY 3
-#define SEARCH 4
-#define PRINT 5
-#define SORT 6
-#define EXIT 0
+enum option
+{
+	EXIT,
+	ADD,
+	DELETE,
+	MODIFY,
+	SEARCH,
+	PRINT,
+	SORT
+};
 
 void menu()
 {
@@ -16,40 +19,51 @@ void menu()
 	printf("-------3.modify--------------\n");
 	printf("-------4.search--------------\n");
 	printf("-------5.print---------------\n");
-	printf("-------6.sort----------------\n");
+	printf("-------6.sort--------- -------\n");
 }
 
 int main()
 {
 	int input;
+	contact con;
+	InitContact(&con);
+
 	do
 	{
 		menu();
 
-		printf("ÇëÊäÈë:>");
-		scanf_s("%d",input);
+		printf("è¯·è¾“å…¥:>");
+		scanf_s("%d", &input);
 
 		switch (input)
 		{
 		case EXIT:
+			printf("å·²é€€å‡º");
 			break;
 		case ADD:
+			AddContact(&con);
 			break;
 		case DELETE:
+			DeleteContact(&con);
 			break;
 		case MODIFY:
+			ModifyContact(&con);
 			break;
 		case SEARCH:
+			SearchContact(&con);
 			break;
 		case PRINT:
+			PrintContact(&con);
+			break;
+		case SORT:
+
 			break;
 		default:
-			printf("ÊäÈëÓĞÎó£¬ÖØĞÂÊäÈë");
+			printf("è¾“å…¥æœ‰è¯¯ï¼Œé‡æ–°è¾“å…¥");
 			break;
 		}
 
 	} while (input);
-
 
 	return 0;
 }
