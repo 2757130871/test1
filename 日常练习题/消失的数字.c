@@ -16,3 +16,23 @@ int missingNumber(int* nums, int numsSize){
     
     return sum1 + i - sum2;
 }
+
+//异或法
+
+//利用异或的特性：
+//0 异或任何数等于本身
+//相同数异或等于0
+
+
+int missingNumber(int* nums, int numsSize){
+
+    int  x = 0;
+    int i;
+    for(i=0;i<numsSize;i++)
+    {
+       x  ^= i;
+       x^= nums[i];
+    }
+
+    return x^i;
+}
