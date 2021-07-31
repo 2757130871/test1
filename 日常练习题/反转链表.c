@@ -33,3 +33,29 @@ struct ListNode* reverseList(struct ListNode* head){
     
     return prev;
 }
+
+
+
+
+//头插法
+struct ListNode* reverseList(struct ListNode* head){
+
+    if(!head) return NULL;
+    if(!head->next) return head;
+
+    Node* cur = head;
+    Node* next = cur->next;
+    Node* newHead = NULL;
+
+    while(cur)
+    {   
+        cur->next = newHead;
+        newHead = cur;
+     
+        cur = next;
+        if(next)
+            next = next->next;
+    }
+
+    return newHead;
+}
