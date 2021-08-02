@@ -7,8 +7,13 @@
  */
 
 
-//
+
 typedef struct ListNode Node;
+
+//思路： list1 list2 
+//先计算两个链表其节点个数 cnt1 cnt2
+//让短的节点先走 |cnt1 - cnt2|步
+//让list1 list2同时遍历 如果相同说明相交
 
 struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB) {
     
