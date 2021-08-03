@@ -1,5 +1,6 @@
 #include  <stdio.h>
 
+//
 int main(void)
 {
 	int a = 5;
@@ -15,7 +16,7 @@ int main(void)
 }
 
 
-//使用异或的方式。
+//脢鹿脫脙脪矛禄貌碌脛路陆脢陆隆拢
 //int main(void)
 //{
 //	int a = 5;
