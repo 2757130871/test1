@@ -1,0 +1,205 @@
+//多此一举的题目，老应试教育了
+
+//结构体里放两个栈，s1 s2
+//s1为主栈 s2为辅助栈
+//由于栈只允许访问栈顶元素
+//所以，要像队列一样访问队头元素，就得把s1内的 n-1 个元素 push进s2 (n为s1元素个数)
+//当s1 栈内只有最后一个元素 才能以栈的方式访问到队头
+//操作完毕，再把s2内的元素push回s1
+// ......真是多此一举
+
+
+#define INCREMENT 2
+#define CAPACITY  4  
+
+typedef int DataType;
+
+typedef struct Stack
+{
+	DataType* stk;
+	int top;
+	int capacity;
+
+}Stack;
+
+
+void StackInit(Stack* stk);
+void StackDestroy(Stack* stk);
+void StackPush(Stack* stk,DataType val);
+void StackPop(Stack* stk);
+DataType StackPeek(Stack* stk); //栈如果为空，返回-1
+bool StackIsEmpty(Stack* stk);
+int StackSize(Stack* stk);
+
+
+void StackInit(Stack* stk)
+{
+	assert(stk);
+
+	stk->stk = (DataType*)malloc(sizeof(DataType) * CAPACITY);
+	stk->top = -1;
+	stk->capacity = CAPACITY;
+}
+
+void StackDestroy(Stack* stk)
+{
+	assert(stk);
+	free(stk->stk);
+}
+
+void StackPush(Stack* stk, DataType val)
+{
+	assert(stk);
+	
+	if (stk->top == stk->capacity - 1)
+	{
+		//扩容
+		DataType* tmp = 
+			(DataType*)realloc(stk->stk, sizeof(DataType) * stk->capacity * INCREMENT);
+
+		assert(tmp);
+		stk->stk = tmp;
+		stk->capacity *= INCREMENT;
+	}
+
+	stk->top++;
+	stk->stk[stk->top] = val;
+}
+
+
+void StackPop(Stack* stk)
+{
+	assert(stk);
+	if (StackIsEmpty(stk))
+		return;
+
+	stk->top--;
+}
+DataType StackPeek(Stack* stk)
+{
+	assert(stk);
+	if (StackIsEmpty(stk))
+		return -1;
+
+	return stk->stk[stk->top];
+}
+
+bool StackIsEmpty(Stack* stk)
+{
+	assert(stk);
+	return stk->top == -1;
+}
+
+int StackSize(Stack* stk) 
+{	
+	assert(stk);
+	return stk->top + 1;
+}
+
+
+typedef struct {
+    Stack* s1;
+    Stack* s2;
+
+} MyQueue;
+
+/** Initialize your data structure here. */
+
+MyQueue* myQueueCreate() {
+
+    MyQueue* que = (MyQueue*)malloc(sizeof(MyQueue));
+    assert(que);
+    que->s1 = (Stack*)malloc(sizeof(Stack));
+    StackInit(que->s1);
+    que->s2 = (Stack*)malloc(sizeof(Stack));
+    StackInit(que->s2);
+
+    return que;
+}
+
+/** Push element x to the back of queue. */
+void myQueuePush(MyQueue* obj, int x) {
+
+    assert(obj);
+    obj->s1->top++;
+    obj->s1->stk[obj->s1->top] = x;
+
+}
+
+/** Removes the element from in front of queue and returns that element. */
+int myQueuePop(MyQueue* obj) {
+
+    assert(obj);
+    
+
+    while(StackSize(obj->s1) > 1)
+    {
+        StackPush(obj->s2,StackPeek(obj->s1));
+        StackPop(obj->s1);
+    }
+
+    int ret = StackPeek(obj->s1);
+    StackPop(obj->s1);
+
+    while(StackSize(obj->s2) > 0)
+    {
+        StackPush(obj->s1,StackPeek(obj->s2));
+        StackPop(obj->s2);
+    }
+
+    return ret;
+}
+
+/** Get the front element. */
+int myQueuePeek(MyQueue* obj) {
+
+    assert(obj);
+
+    while(StackSize(obj->s1) > 1)
+    {
+        StackPush(obj->s2,StackPeek(obj->s1));
+        StackPop(obj->s1);
+    }
+
+    int ret = StackPeek(obj->s1);
+
+    while(StackSize(obj->s2) > 0)
+    {
+        StackPush(obj->s1,StackPeek(obj->s2));
+        StackPop(obj->s2);
+    }
+
+    return ret;
+}
+
+/** Returns whether the queue is empty. */
+bool myQueueEmpty(MyQueue* obj) {
+
+    assert(obj);
+    return StackIsEmpty(obj->s1);
+}
+
+void myQueueFree(MyQueue* obj) {
+
+    assert(obj);
+    
+    free(obj->s1->stk);
+    free(obj->s2->stk);
+    free(obj->s1);
+    free(obj->s2);
+    free(obj);
+}
+
+/**
+ * Your MyQueue struct will be instantiated and called as such:
+ * MyQueue* obj = myQueueCreate();
+ * myQueuePush(obj, x);
+ 
+ * int param_2 = myQueuePop(obj);
+ 
+ * int param_3 = myQueuePeek(obj);
+ 
+ * bool param_4 = myQueueEmpty(obj);
+ 
+ * myQueueFree(obj);
+*/
